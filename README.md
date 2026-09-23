@@ -44,22 +44,26 @@ dsh plugin --profile web add "$PWD"
 
 ## 3. Store credentials
 
-The recommended setup stores both values in `$DSH_HOME/.credentials.yaml` (normally `~/.dsh/.credentials.yaml`). Merge these keys into its existing `refs` mapping; do not replace existing credentials:
+Put the bot token and chat id in the local, Git-ignored `.env.secret` file:
 
-```yaml
-version: 1
-refs:
-  TELEGRAM_BOT_TOKEN: "123456789:replace-with-your-token"
-  TELEGRAM_CHAT_ID: "123456789"
+```dotenv
+TELEGRAM_BOT_TOKEN=123456789:replace-with-your-token
+TELEGRAM_CHAT_ID=123456789
 ```
 
-Keep the file private:
+Then sync them into DSH:
 
 ```bash
-chmod 600 "$DSH_HOME/.credentials.yaml"
+npm run setup
 ```
 
-If `DSH_HOME` is unset, use `~/.dsh/.credentials.yaml`.
+The setup command merges both values into `$DSH_HOME/.credentials.yaml` (normally `~/.dsh/.credentials.yaml`), preserves other credentials already in that file, and restricts both secret files to owner-only access. Run `npm run credentials:sync` whenever you change `.env.secret`.
+
+For a fresh clone, create the local file from the tracked template first:
+
+```bash
+cp .env.example .env.secret
+```
 
 You may alternatively launch DSH with `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in its environment. Environment values have higher precedence than the managed credential file and require a Harness restart when changed.
 
