@@ -2,6 +2,7 @@
   "name": "dsh-telegram-notifier",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.18.0",
   "description": "Telegram notifications for DeepSeek Harness clarification requests and completed answers",
   "type": "module",
   "main": "lib/index.js",

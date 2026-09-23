@@ -30,6 +30,14 @@ It listens to the shared `session/event` stream, so it covers the main agent and
 
 ## 2. Install the local plugin into the Web profile
 
+Use pnpm 11.18.0 (pinned in `package.json`) for this project's dependencies and scripts. From the project directory, install the locked dependencies:
+
+```bash
+pnpm install --frozen-lockfile
+```
+
+Commit `pnpm-lock.yaml` when changing dependencies. The local `pnpm-workspace.yaml` keeps this repository independent of any parent pnpm workspace.
+
 From the parent directory that contains `dsh-telegram-notifier`:
 
 ```bash
@@ -54,10 +62,10 @@ TELEGRAM_CHAT_ID=123456789
 Then sync them into DSH:
 
 ```bash
-npm run setup
+pnpm run setup
 ```
 
-The setup command merges both values into `$DSH_HOME/.credentials.yaml` (normally `~/.dsh/.credentials.yaml`), preserves other credentials already in that file, and restricts both secret files to owner-only access. Run `npm run credentials:sync` whenever you change `.env.secret`.
+The setup command merges both values into `$DSH_HOME/.credentials.yaml` (normally `~/.dsh/.credentials.yaml`), preserves other credentials already in that file, and restricts both secret files to owner-only access. Run `pnpm run credentials:sync` whenever you change `.env.secret`.
 
 For a fresh clone, create the local file from the tracked template first:
 
@@ -123,8 +131,8 @@ Run local checks:
 
 ```bash
 cd dsh-telegram-notifier
-npm test
-npm run check
+pnpm test
+pnpm run check
 ```
 
 After enabling the plugin, ask an agent to perform a task that intentionally needs a choice. You should receive one clarification notification, and after answering in the Harness GUI, one completion notification.

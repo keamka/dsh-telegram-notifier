@@ -1,0 +1,4 @@
+packages:
+  - '.'
+minimumReleaseAgeExclude:
+  - dotenv@18.0.3
